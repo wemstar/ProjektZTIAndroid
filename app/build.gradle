@@ -69,6 +69,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:design:23.1.1'
 }
 
 apt {

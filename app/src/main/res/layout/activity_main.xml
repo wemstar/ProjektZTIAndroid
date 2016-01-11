@@ -11,15 +11,19 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/passwordText"
-            android:layout_alignParentTop="true" android:layout_alignParentEnd="true" android:layout_marginTop="59dp"/>
+            android:id="@+id/loginText" android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/passwordText" android:inputType="text"
+            android:nextFocusForward="@+id/passwordText"
+            android:text="user"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/loginText" android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
-            android:layout_alignStart="@+id/passwordText" android:inputType="text"/>
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/passwordText"
+            android:layout_alignParentTop="true" android:layout_alignParentEnd="true" android:layout_marginTop="59dp"
+            android:text="user"/>
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -9,16 +9,17 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.util.LinkedMultiValueMap;
 import pl.edu.agh.fiss.android.rest.dto.ProductDTO;
 import pl.edu.agh.fiss.android.rest.interceptor.AuthenticateInterceptor;
+import pl.edu.agh.fiss.android.utils.StringConstant;
 
 import java.util.List;
 
 /**
  * Created by wemstar on 2016-01-04.
  */
-@Rest(rootUrl = "http://192.168.0.13:8080/rest", converters = { MappingJackson2HttpMessageConverter.class,FormHttpMessageConverter.class },interceptors = { AuthenticateInterceptor.class })
+@Rest(rootUrl = StringConstant.SERVER_ADRES, converters = { MappingJackson2HttpMessageConverter.class,FormHttpMessageConverter.class },interceptors = { AuthenticateInterceptor.class })
 public interface ProductService {
 
     @Get("/product/all")
-    @RequiresHeader(value = {"X-Auth-Token"})
+    @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
     List<ProductDTO> getAllProducts();
 }

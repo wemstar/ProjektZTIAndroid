@@ -24,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".product.list.ProductListActivity_"
-            android:label="@string/title_activity_product_list" >
+            android:name=".MainScreen_"
+            android:label="@string/title_activity_main_screen" >
         </activity>
     </application>
 

@@ -8,4 +8,8 @@
     <string name="title_productdto_list">ProductDTO</string>
     <string name="title_productdto_detail">ProductDTO Detail</string>
     <string name="title_activity_product_list">ProductListActivity</string>
+    <string name="title_activity_main_screen">Menu główne</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

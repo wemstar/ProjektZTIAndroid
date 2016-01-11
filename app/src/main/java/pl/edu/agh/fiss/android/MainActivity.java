@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.rest.RestService;
-import pl.edu.agh.fiss.android.product.list.ProductListActivity_;
 import pl.edu.agh.fiss.android.rest.LoginClient;
 import pl.edu.agh.fiss.android.rest.ProductService;
 import pl.edu.agh.fiss.android.rest.dto.TokenResponse;
@@ -16,7 +16,7 @@ import pl.edu.agh.fiss.android.utils.TokenContext;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main)
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
 
     @OptionsMenuItem
@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
     }
 
     void startNextActivity() {
-        Intent intent = new Intent(this, ProductListActivity_.class);
+        Intent intent = new Intent(this, MainScreen_.class);
         startActivity(intent);
     }
 

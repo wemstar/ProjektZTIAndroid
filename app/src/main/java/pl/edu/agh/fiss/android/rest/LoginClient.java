@@ -10,15 +10,16 @@ import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import pl.edu.agh.fiss.android.rest.dto.TokenResponse;
+import pl.edu.agh.fiss.android.utils.StringConstant;
 
 /**
  * Created by wemstar on 2016-01-03.
  */
-@Rest(rootUrl = "http://192.168.0.13:8080/rest", converters = { MappingJackson2HttpMessageConverter.class,FormHttpMessageConverter.class })
+@Rest(rootUrl = StringConstant.SERVER_ADRES, converters = { MappingJackson2HttpMessageConverter.class,FormHttpMessageConverter.class })
 public interface LoginClient extends RestClientHeaders {
 
     @Post("/authenticate")
-    @RequiresHeader(value = {"X-Auth-Password","X-Auth-Username"})
+    @RequiresHeader(value = {StringConstant.USER_NAME_HEADER,StringConstant.PASSWORD_HEADER})
     TokenResponse login();
 
 }
