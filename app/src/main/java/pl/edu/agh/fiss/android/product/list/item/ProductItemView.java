@@ -16,9 +16,7 @@ import org.androidannotations.annotations.ViewById;
 import pl.edu.agh.fiss.android.R;
 import pl.edu.agh.fiss.android.rest.dto.ProductDTO;
 
-/**
- * TODO: document your custom view class.
- */
+
 @EViewGroup(R.layout.product_item_view)
 public class ProductItemView extends LinearLayout {
 
