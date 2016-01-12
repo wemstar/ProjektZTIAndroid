@@ -1,9 +1,11 @@
 package pl.edu.agh.fiss.android.rest.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by wemstar on 2016-01-04.
  */
-public class ProductDTO {
+public class ProductDTO implements Serializable {
     private Long id;
     private String name;
     private Double value;

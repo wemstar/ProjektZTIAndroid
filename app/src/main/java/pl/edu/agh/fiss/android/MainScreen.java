@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import pl.edu.agh.fiss.android.basket.BasketList;
+import pl.edu.agh.fiss.android.basket.BasketList_;
 import pl.edu.agh.fiss.android.product.list.ProductFragment;
 import pl.edu.agh.fiss.android.product.list.ProductFragment_;
 
@@ -33,7 +35,7 @@ public class MainScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProductFragment_().builder().build(), ProductFragment.TITLE);
-        adapter.addFragment(new ProductFragment_().builder().build(), "TWO");
+        adapter.addFragment(new BasketList_().builder().build(), BasketList.TITLE);
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
     }
