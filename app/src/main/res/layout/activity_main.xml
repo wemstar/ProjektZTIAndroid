@@ -42,7 +42,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Login"
-            android:id="@+id/loginButton" android:layout_below="@+id/passwordText" android:layout_centerHorizontal="true"
-            android:layout_marginTop="41dp"/>
+            android:id="@+id/loginButton"
+            android:layout_marginTop="41dp" android:layout_below="@+id/passwordText"
+            android:layout_alignStart="@+id/passwordText" android:layout_marginStart="41dp"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:id="@+id/registerButton"
+            android:layout_marginStart="72dp" android:layout_alignTop="@+id/loginButton"
+            android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

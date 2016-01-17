@@ -1,5 +1,6 @@
 package pl.edu.agh.fiss.android;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,12 +9,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.rest.RestService;
 import pl.edu.agh.fiss.android.basket.BasketList;
 import pl.edu.agh.fiss.android.basket.BasketList_;
 import pl.edu.agh.fiss.android.order.list.OrderListFragment;
 import pl.edu.agh.fiss.android.order.list.OrderListFragment_;
+import pl.edu.agh.fiss.android.product.detail.ProductDetail;
+import pl.edu.agh.fiss.android.product.detail.ProductDetail_;
 import pl.edu.agh.fiss.android.product.list.ProductFragment;
 import pl.edu.agh.fiss.android.product.list.ProductFragment_;
+import pl.edu.agh.fiss.android.rest.UserService;
+import pl.edu.agh.fiss.android.rest.dto.UserDTO;
+import pl.edu.agh.fiss.android.user.details.UserDetailActivity;
+import pl.edu.agh.fiss.android.user.details.UserDetailActivity_;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +39,11 @@ public class MainScreen extends AppCompatActivity {
     @ViewById
     ViewPager viewPager;
 
+    @RestService
+    UserService userService;
+
+    private UserDTO cureentUser;
+
     @AfterViews
     public void setupViewPager() {
         setSupportActionBar(toolbar);
@@ -40,11 +53,19 @@ public class MainScreen extends AppCompatActivity {
         adapter.addFragment(new OrderListFragment_().builder().build(), OrderListFragment.TITLE);
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
+        downloadUser();
     }
 
     @OptionsItem(R.id.action_user)
     void actionUserClicked() {
+        Intent intent = new Intent(this, UserDetailActivity_.class);
+        intent.putExtra(UserDetailActivity.DETAIL_KEY,cureentUser);
+        startActivity(intent);
+    }
 
+    @Background
+    void downloadUser() {
+        cureentUser = userService.getUser();
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

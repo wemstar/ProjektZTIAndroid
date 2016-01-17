@@ -12,6 +12,9 @@ public class UserDTO implements Serializable{
     private BasketDTO basket;
     private String password;
     private Set<String> roles;
+    private String email;
+    private String city;
+    private String street;
 
     public String getLogin() {
         return login;
@@ -43,5 +46,29 @@ public class UserDTO implements Serializable{
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreet() {
+        return street;
     }
 }

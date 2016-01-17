@@ -1,9 +1,6 @@
 package pl.edu.agh.fiss.android.rest;
 
-import org.androidannotations.annotations.rest.Delete;
-import org.androidannotations.annotations.rest.Post;
-import org.androidannotations.annotations.rest.Put;
-import org.androidannotations.annotations.rest.Rest;
+import org.androidannotations.annotations.rest.*;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import pl.edu.agh.fiss.android.rest.dto.UserDTO;
@@ -16,13 +13,20 @@ import pl.edu.agh.fiss.android.utils.StringConstant;
 @Rest(rootUrl = StringConstant.SERVER_ADRES, converters = { MappingJackson2HttpMessageConverter.class,FormHttpMessageConverter.class },interceptors = { AuthenticateInterceptor.class })
 public interface UserService {
 
+    @Get("/user")
+    @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
+    UserDTO getUser();
+
     @Put("/user")
+    @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
     UserDTO createUser(UserDTO user);
 
     @Post("/user")
+    @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
     UserDTO update(UserDTO user);
 
     @Delete("/user")
+    @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
     void deleteUser(String login);
 
 }

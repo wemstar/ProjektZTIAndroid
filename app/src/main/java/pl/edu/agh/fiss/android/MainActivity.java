@@ -12,6 +12,7 @@ import org.androidannotations.annotations.rest.RestService;
 import pl.edu.agh.fiss.android.rest.LoginClient;
 import pl.edu.agh.fiss.android.rest.ProductService;
 import pl.edu.agh.fiss.android.rest.dto.TokenResponse;
+import pl.edu.agh.fiss.android.user.details.UserDetailActivity_;
 import pl.edu.agh.fiss.android.utils.TokenContext;
 
 @EActivity(R.layout.activity_main)
@@ -56,10 +57,16 @@ public class MainActivity extends AppCompatActivity {
         loginAsync(loginText.getText().toString(),passwordText.getText().toString());
     }
 
+    @Click(R.id.registerButton)
+    void registerButtonClicked() {
+        Intent intent = new Intent(this, UserDetailActivity_.class);
+        startActivity(intent);
+    }
+
     @Background
     void loginAsync(String login, String password) {
-        loginService.setHeader("X-Auth-Username", "user");
-        loginService.setHeader("X-Auth-Password", "user");
+        loginService.setHeader("X-Auth-Username", login);
+        loginService.setHeader("X-Auth-Password", password);
         TokenResponse resp = loginService.login();
         tokenContext.token = resp.token;
         startNextActivity();

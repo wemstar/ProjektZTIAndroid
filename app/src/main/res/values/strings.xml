@@ -19,4 +19,6 @@
     <string name="cancel">Cancel</string>
     <string name="add_basket">Add to Basket</string>
     <string name="back">Back</string>
+    <string name="title_activity_user_detail">UserDetailActivity</string>
+    <string name="title_activity_user_register">UserRegisterActivity</string>
 </resources>
