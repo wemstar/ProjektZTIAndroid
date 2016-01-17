@@ -1,9 +1,11 @@
 package pl.edu.agh.fiss.android.rest.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by wemstar on 2016-01-12.
  */
-public class ProductCountDTO {
+public class ProductCountDTO implements Serializable {
 
     private ProductDTO product;
     private Integer count;

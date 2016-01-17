@@ -30,14 +30,14 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="@string/add_basket"
             android:id="@+id/confirmButton"
             android:layout_marginTop="82dp" android:layout_below="@+id/ammountText"
             android:layout_alignEnd="@+id/ammountText"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="@string/cancel"
             android:id="@+id/cancelButton"
             android:layout_alignTop="@+id/confirmButton" android:layout_toStartOf="@+id/confirmButton"/>
 </RelativeLayout>
