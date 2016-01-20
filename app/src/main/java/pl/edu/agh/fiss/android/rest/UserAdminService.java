@@ -1,35 +1,33 @@
 package pl.edu.agh.fiss.android.rest;
 
-import org.androidannotations.annotations.rest.*;
+import org.androidannotations.annotations.rest.Get;
+import org.androidannotations.annotations.rest.Post;
+import org.androidannotations.annotations.rest.RequiresHeader;
+import org.androidannotations.annotations.rest.Rest;
 import org.androidannotations.api.rest.RestClientErrorHandling;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import pl.edu.agh.fiss.android.rest.dto.OrderDTO;
+import pl.edu.agh.fiss.android.rest.dto.UserDTO;
 import pl.edu.agh.fiss.android.rest.interceptor.AuthenticateInterceptor;
 import pl.edu.agh.fiss.android.utils.StringConstant;
 
 import java.util.List;
 
 /**
- * Created by wemstar on 2016-01-16.
+ * Created by wemstar on 2016-01-19.
  */
 @Rest(rootUrl = StringConstant.SERVER_ADRES, converters = { MappingJackson2HttpMessageConverter.class,FormHttpMessageConverter.class },interceptors = { AuthenticateInterceptor.class })
-public interface OrderService extends RestClientErrorHandling {
-    @Put("/order")
+public interface UserAdminService extends RestClientErrorHandling {
+
+    @Get("/admin/user")
     @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
-    OrderDTO placeOrder();
+    List<UserDTO> getAllUsers();
 
-    @Get("/order")
+    @Get("/admin/user/{id}")
     @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
-    List<OrderDTO> getAllOrder();
+    UserDTO getUser(Long id);
 
-    @Get("/order/{orderId}")
+    @Post("/admin/user")
     @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
-    OrderDTO getOrder(Long orderId);
-
-    @Delete("/order/{orderId}")
-    @RequiresHeader(value = {StringConstant.TOKEN_HEADER})
-    void cancelOrder(Long orderId);
-
-
+    void updateUser(UserDTO order);
 }

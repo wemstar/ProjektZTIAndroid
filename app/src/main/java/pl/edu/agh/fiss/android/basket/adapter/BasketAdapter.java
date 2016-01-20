@@ -11,6 +11,7 @@ import pl.edu.agh.fiss.android.basket.item.BasketItemView_;
 import pl.edu.agh.fiss.android.rest.BasketService;
 import pl.edu.agh.fiss.android.rest.dto.BasketDTO;
 import pl.edu.agh.fiss.android.rest.dto.ProductCountDTO;
+import pl.edu.agh.fiss.android.rest.handler.ErrorHandler;
 
 /**
  * Created by wemstar on 2016-01-12.
@@ -23,11 +24,16 @@ public class BasketAdapter extends BaseAdapter {
     @RestService
     BasketService basketService;
 
+    @Bean
+    ErrorHandler errorHandler;
+
     @RootContext
     Context context;
 
     @AfterInject
     void initAdapter() {
+        // TODO: Add activity execution to error handler
+        basketService.setRestErrorHandler(errorHandler);
         loadData();
     }
 

@@ -1,8 +1,6 @@
 package pl.edu.agh.fiss.android.basket;
 
 
-
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
@@ -10,15 +8,11 @@ import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.rest.RestService;
 import pl.edu.agh.fiss.android.R;
 import pl.edu.agh.fiss.android.basket.adapter.BasketAdapter;
-import pl.edu.agh.fiss.android.order.details.OrderDetails;
-import pl.edu.agh.fiss.android.order.details.OrderDetails_;
-import pl.edu.agh.fiss.android.product.detail.ProductDetail;
-import pl.edu.agh.fiss.android.product.detail.ProductDetail_;
 import pl.edu.agh.fiss.android.rest.BasketService;
 import pl.edu.agh.fiss.android.rest.OrderService;
-import pl.edu.agh.fiss.android.rest.dto.OrderDTO;
 import pl.edu.agh.fiss.android.rest.dto.ProductCountDTO;
-import pl.edu.agh.fiss.android.rest.dto.ProductDTO;
+import pl.edu.agh.fiss.android.rest.handler.ErrorHandler;
+import pl.edu.agh.fiss.android.utils.SucessDialog;
 
 @EFragment(R.layout.fragment_basket_list)
 public class BasketList extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -41,9 +35,14 @@ public class BasketList extends Fragment implements SwipeRefreshLayout.OnRefresh
     @RestService
     BasketService basketService;
 
+    @Bean
+    ErrorHandler errorHandler;
+
     @AfterViews
     void bindAdapter() {
-
+        errorHandler.setActivity(getActivity());
+        basketService.setRestErrorHandler(errorHandler);
+        orderService.setRestErrorHandler(errorHandler);
         listView.setAdapter(adapter);
         swipeContainer.setOnRefreshListener(this);
     }
@@ -61,11 +60,13 @@ public class BasketList extends Fragment implements SwipeRefreshLayout.OnRefresh
     @Background
     void placeOrderAsync(){
         orderService.placeOrder();
+        SucessDialog.sucesfullReturn(this.getActivity());
     }
 
     @Background
     void removeFromBasket(Long id) {
         basketService.removeFromBasket(id);
+        SucessDialog.sucesfullReturn(this.getActivity());
     }
 
 

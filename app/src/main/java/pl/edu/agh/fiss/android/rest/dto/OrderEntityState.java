@@ -19,6 +19,20 @@ public enum OrderEntityState {
         return (otherName == null) ? false : name.equals(otherName);
     }
 
+    public int position(){
+        switch (this){
+            case NEW:
+                return 0;
+            case CONFIRMED:
+                return 1;
+            case REDY:
+                return 2;
+            case CLOSED:
+                return 3;
+        }
+        return 0;
+    }
+
     public String toString() {
         return this.name;
     }

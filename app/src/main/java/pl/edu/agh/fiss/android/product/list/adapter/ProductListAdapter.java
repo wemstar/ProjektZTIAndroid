@@ -10,6 +10,7 @@ import pl.edu.agh.fiss.android.product.list.item.ProductItemView;
 import pl.edu.agh.fiss.android.product.list.item.ProductItemView_;
 import pl.edu.agh.fiss.android.rest.ProductService;
 import pl.edu.agh.fiss.android.rest.dto.ProductDTO;
+import pl.edu.agh.fiss.android.rest.handler.ErrorHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,13 @@ public class ProductListAdapter extends BaseAdapter {
     @RootContext
     Context context;
 
+    @Bean
+    ErrorHandler errorHandler;
+
     @AfterInject
     void initAdapter() {
+        // TODO: Add activity execution to error handler
+        productService.setRestErrorHandler(errorHandler);
         loadData();
     }
 

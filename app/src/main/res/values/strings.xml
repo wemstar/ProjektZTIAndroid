@@ -21,4 +21,11 @@
     <string name="back">Back</string>
     <string name="title_activity_user_detail">UserDetailActivity</string>
     <string name="title_activity_user_register">UserRegisterActivity</string>
+
+    <string-array name="order_status_array">
+        <item>NEW</item>
+        <item>CONFIRMED</item>
+        <item>REDY</item>
+        <item>CLOSED</item>
+    </string-array>
 </resources>

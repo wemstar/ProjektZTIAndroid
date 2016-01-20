@@ -12,6 +12,8 @@ import pl.edu.agh.fiss.android.R;
 import pl.edu.agh.fiss.android.rest.UserService;
 import pl.edu.agh.fiss.android.rest.dto.ProductDTO;
 import pl.edu.agh.fiss.android.rest.dto.UserDTO;
+import pl.edu.agh.fiss.android.rest.handler.ErrorHandler;
+import pl.edu.agh.fiss.android.utils.SucessDialog;
 
 @EActivity(R.layout.activity_user_detail)
 public class UserDetailActivity extends AppCompatActivity {
@@ -40,6 +42,9 @@ public class UserDetailActivity extends AppCompatActivity {
     @RestService
     UserService userService;
 
+    @Bean
+    ErrorHandler errorHandler;
+
     @Click(R.id.ubdateButton)
     void updateUserClick() {
         updateUser();
@@ -49,6 +54,8 @@ public class UserDetailActivity extends AppCompatActivity {
 
     @AfterViews
     void bindToModel() {
+        errorHandler.setActivity(this);
+        userService.setRestErrorHandler(errorHandler);
         UserDTO user = (UserDTO) getIntent().getSerializableExtra(DETAIL_KEY);
         updateState = user != null;
         ubdateButton.setText( updateState ? "Update": "Create");
@@ -73,6 +80,7 @@ public class UserDetailActivity extends AppCompatActivity {
             userService.update(user);
         else
             userService.createUser(user);
+        SucessDialog.sucesfullReturn(this);
     }
 
 }

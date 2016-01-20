@@ -22,6 +22,10 @@ import pl.edu.agh.fiss.android.rest.UserService;
 import pl.edu.agh.fiss.android.rest.dto.UserDTO;
 import pl.edu.agh.fiss.android.user.details.UserDetailActivity;
 import pl.edu.agh.fiss.android.user.details.UserDetailActivity_;
+import pl.edu.agh.fiss.android.user.list.UserListFragment;
+import pl.edu.agh.fiss.android.user.list.UserListFragment_;
+import pl.edu.agh.fiss.android.utils.StringConstant;
+import pl.edu.agh.fiss.android.utils.UserContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,7 @@ import java.util.List;
 @OptionsMenu(R.menu.menu_main_screen)
 public class MainScreen extends AppCompatActivity {
 
+    public static final String USER_KEY = "USER_STATIC_KEY";
     @ViewById
     Toolbar toolbar;
 
@@ -39,8 +44,8 @@ public class MainScreen extends AppCompatActivity {
     @ViewById
     ViewPager viewPager;
 
-    @RestService
-    UserService userService;
+    @Bean
+    UserContext userContext;
 
     private UserDTO cureentUser;
 
@@ -48,12 +53,18 @@ public class MainScreen extends AppCompatActivity {
     public void setupViewPager() {
         setSupportActionBar(toolbar);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ProductFragment_().builder().build(), ProductFragment.TITLE);
-        adapter.addFragment(new BasketList_().builder().build(), BasketList.TITLE);
-        adapter.addFragment(new OrderListFragment_().builder().build(), OrderListFragment.TITLE);
+        cureentUser = userContext.getUserDTO();
+        if(userContext.isAdmin()) {
+            adapter.addFragment(new UserListFragment_().builder().build(), UserListFragment.TITLE);
+            adapter.addFragment(new OrderListFragment_().builder().build(), OrderListFragment.TITLE);
+
+        }else {
+            adapter.addFragment(new ProductFragment_().builder().build(), ProductFragment.TITLE);
+            adapter.addFragment(new BasketList_().builder().build(), BasketList.TITLE);
+            adapter.addFragment(new OrderListFragment_().builder().build(), OrderListFragment.TITLE);
+        }
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
-        downloadUser();
     }
 
     @OptionsItem(R.id.action_user)
@@ -63,10 +74,7 @@ public class MainScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Background
-    void downloadUser() {
-        cureentUser = userService.getUser();
-    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<Fragment>();

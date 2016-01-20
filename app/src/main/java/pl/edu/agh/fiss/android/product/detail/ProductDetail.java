@@ -12,6 +12,7 @@ import org.androidannotations.annotations.rest.RestService;
 import pl.edu.agh.fiss.android.R;
 import pl.edu.agh.fiss.android.rest.BasketService;
 import pl.edu.agh.fiss.android.rest.dto.ProductDTO;
+import pl.edu.agh.fiss.android.rest.handler.ErrorHandler;
 
 @EActivity(R.layout.activity_product_detail)
 public class ProductDetail extends AppCompatActivity {
@@ -35,11 +36,17 @@ public class ProductDetail extends AppCompatActivity {
     @RestService
     BasketService basketService;
 
+    @Bean
+    ErrorHandler errorHandler;
+
     @AfterViews
     void bindData() {
+        errorHandler.setActivity(this);
+        basketService.setRestErrorHandler(errorHandler);
         productDTO = (ProductDTO) getIntent().getSerializableExtra(DETAIL_KEY);
         nameLabel.setText(productDTO.getName());
         detailLabel.setText(productDTO.getDescription());
+
     }
 
     @Click(R.id.confirmButton)

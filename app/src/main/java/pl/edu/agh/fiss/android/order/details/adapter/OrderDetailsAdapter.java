@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.rest.RestService;
@@ -12,6 +13,7 @@ import pl.edu.agh.fiss.android.basket.item.BasketItemView;
 import pl.edu.agh.fiss.android.basket.item.BasketItemView_;
 import pl.edu.agh.fiss.android.rest.OrderService;
 import pl.edu.agh.fiss.android.rest.dto.ProductCountDTO;
+import pl.edu.agh.fiss.android.rest.handler.ErrorHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,15 @@ public class OrderDetailsAdapter extends BaseAdapter {
 
     @RootContext
     Context context;
+
+    @Bean
+    ErrorHandler errorHandler;
+
+    @AfterInject
+    void afterInject() {
+        // TODO: Add activity execution to error handler
+        orderService.setRestErrorHandler(errorHandler);
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

@@ -11,9 +11,13 @@ import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.rest.RestService;
 import pl.edu.agh.fiss.android.rest.LoginClient;
 import pl.edu.agh.fiss.android.rest.ProductService;
+import pl.edu.agh.fiss.android.rest.UserService;
 import pl.edu.agh.fiss.android.rest.dto.TokenResponse;
+import pl.edu.agh.fiss.android.rest.dto.UserDTO;
+import pl.edu.agh.fiss.android.rest.handler.ErrorHandler;
 import pl.edu.agh.fiss.android.user.details.UserDetailActivity_;
 import pl.edu.agh.fiss.android.utils.TokenContext;
+import pl.edu.agh.fiss.android.utils.UserContext;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main)
@@ -35,8 +39,25 @@ public class MainActivity extends AppCompatActivity {
     @RestService
     ProductService productService;
 
+    @RestService
+    UserService userService;
+
     @Bean
     TokenContext tokenContext;
+
+    @Bean
+    UserContext userContext;
+
+    @Bean
+    ErrorHandler errorHandler;
+
+    @AfterInject
+    public void injectBena() {
+        errorHandler.setActivity(this);
+        loginService.setRestErrorHandler(errorHandler);
+        productService.setRestErrorHandler(errorHandler);
+        userService.setRestErrorHandler(errorHandler);
+    }
 
     @OptionsItem(R.id.action_settings)
     void myMethod() {
@@ -69,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         loginService.setHeader("X-Auth-Password", password);
         TokenResponse resp = loginService.login();
         tokenContext.token = resp.token;
+        UserDTO user = userService.getUser();
+        userContext.setUserDTO(user);
         startNextActivity();
     }
 
